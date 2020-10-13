@@ -11,6 +11,7 @@ class GameLogic(d.Deck,p.Player):
         self.deck = []
         self.playerCount = 0
         self.pile = []
+        self.teamCanastas = {}
 
     def getDeck(self):
         return self.deck
@@ -34,11 +35,16 @@ class GameLogic(d.Deck,p.Player):
         return self.pile
 
     def startGame(self,playerCount):
-        for i in range(playerCount):
-            playerName = input("Please enter Player" + str(i) + "'s name: ")
-            self.playerArray.append(playerName)
-            self.playerList[playerName] = p.Player(playerName)
-        self.deck = d.Deck.CreateDeck(self, playerCount)
+        if playerCount not in (2,4):
+            raise Exception("You have to either pick 2 or 4")
+        else:
+            for i in range(playerCount):
+                playerName = input("Please enter Player" + str(i) + "'s name: ")
+                self.playerArray.append(playerName)
+                self.playerList[playerName] = p.Player(playerName, playerCount%1)
+            self.deck = d.Deck.CreateDeck(self, playerCount)
+            self.playerList[playerCount%1] = []
+
 
     def dealCard(self):
         while True:
@@ -61,3 +67,9 @@ class GameLogic(d.Deck,p.Player):
         print("Picked: " + card)
         self.playerList[self.playerArray[playerNum]].hand.append(card)
         self.deck.pop(-1)
+
+    def meldCheck(self,playerNum, card):
+        playerDeck = self.playerList[self.playerArray[playerNum]].hand
+
+
+

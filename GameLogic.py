@@ -9,7 +9,7 @@ class GameLogic(d.Deck,p.Player):
         self.playerList = {}
         self.playerArray = []
         self.deck = []
-        self.playerCount = 0
+        self.playerCount = 0x
         self.pile = []
         self.teamCanastas = {}
 
@@ -70,6 +70,9 @@ class GameLogic(d.Deck,p.Player):
 
     def meldCheck(self,playerNum, card):
         playerDeck = self.playerList[self.playerArray[playerNum]].hand
-
+        currentPile = self.teamCanastas[playerNum]
+        pileDic = {}
+        for i in range(len(currentPile)):
+            pileDic[d.Deck.getCardValue(currentPile[i])] += 1
 
 

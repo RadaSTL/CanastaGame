@@ -52,12 +52,15 @@ class Deck:
             return 100
 
     def getCardValue(self,card):
-        if intCast(card[1:]):
-            return int(card[1:])
-        elif card != "Joker":
-            return card[1:]
+        cardValue = {"A":1, "K":13, "Q":12, "J":11, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10, "Joker":2}
+        cardShapes = {"⯁": 1000, "♥": 1100, "♠": 1200, "♣": 1300}
+        cardVal = 0
+        if card in ["Joker","2"]:
+            cardVal += 1400 + cardValue[card]
         else:
-            return "Joker"
+            cardVal += cardValue[card[1:]]
+            cardVal += cardShapes[card[0]]
+        return cardVal
 
     def getCardColor(self,card):
         colors = {"⯁": "red", "♥": "red", "♠": "black", "♣": "black"}
